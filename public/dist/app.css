@@ -1,0 +1,17 @@
+.src-containers-App-styles__app___36tG7 {
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column; }
+  .src-containers-App-styles__app___36tG7 * {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; }
+  .src-containers-App-styles__app___36tG7 svg,
+  .src-containers-App-styles__app___36tG7 img {
+    display: block; }
+
+.src-components-Header-styles__logo___h1ePP {
+  padding-top: 11px;
+  padding-bottom: 11px; }
+
