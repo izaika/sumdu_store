@@ -4,6 +4,7 @@ import { Navbar } from 'react-bootstrap';
 const { Header, Brand } = Navbar;
 
 import Styles from './header.scss';
+import Navigation from './Navigation';
 
 const LogoSVG = require('../../assets/logo.svg');
 
@@ -15,6 +16,7 @@ const HeaderComponent = () => (
           <LogoSVG className={Styles.logo} />
         </Brand>
       </Header>
+      <Navigation />
     </Navbar>
   </header>
 );
