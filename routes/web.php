@@ -8,8 +8,12 @@ $router->group(['prefix' => '/api'], function () use ($router) {
         $router->get('/{id}', ['uses' => 'UserController@show']);
         $router->put('/{id}', ['uses' => 'UserController@update', 'middleware' => 'auth']);
         $router->delete('/{id}', ['uses' => 'UserController@destroy', 'middleware' => 'auth']);
-        $router->post('/login', ['uses' => 'UserController@logIn']);
     });
+
+    $router->group(['prefix' => '/auth'], function () use ($router) {
+        $router->post('/login', ['uses' => 'AuthController@logIn']);
+    });
+
 });
 
 $router->get('/{any:.*}', 'IndexController@index');
