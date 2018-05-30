@@ -25,6 +25,11 @@ class Authenticate
         $this->auth = $auth;
     }
 
+    private function response($data, $code)
+    {
+        return response()->json(['data' => $data], $code);
+    }
+
     /**
      * Handle an incoming request.
      *
@@ -36,7 +41,7 @@ class Authenticate
     public function handle($request, Closure $next, $guard = null)
     {
         if ($this->auth->guard($guard)->guest()) {
-            return response('Unauthorized.', 401);
+            return $this->response(['error' => 'Unauthorized'], 401);
         }
 
         return $next($request);

@@ -6,10 +6,16 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
-    protected function success($data, $code) {
-        return response()->json(['data' => $data], $code);
+    protected function success($data, $code = 200)
+    {
+        $data['status'] = 0;
+        return response()->json($data, $code);
     }
-    protected function error($message, $code) {
-        return response()->json(['message' => $message], $code);
+
+    protected function fail($message, $code)
+    {
+        $data['status'] = 1;
+        $data['message'] = $message;
+        return response()->json($data, $code);
     }
 }
