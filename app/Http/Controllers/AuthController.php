@@ -32,7 +32,7 @@ class AuthController extends Controller
 
         if (Hash::check($request->input('password'), $user->password)) {
             $apikey = base64_encode(str_random(40));
-            $user->update(['api_key' => $apikey])->save();
+            $user->update(['api_key' => $apikey]);
             return $this->success(['api_key' => $apikey]);
         } else {
             return $this->noAuthorizedResponse();
@@ -41,7 +41,7 @@ class AuthController extends Controller
 
     public function logOut(Request $request)
     {
-        $key = AuthController::getAuthKeyFromRequest($request);
+        $key = self::getAuthKeyFromRequest($request);
         $user = User::where('api_key', $key)->first();
         if ($user) {
             $user->update(['api_key' => null]);
