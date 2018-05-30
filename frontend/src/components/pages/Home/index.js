@@ -1,5 +1,6 @@
 import React from 'react';
+import Content from '../../Content';
 
-const Home = () => <div>Home</div>;
+const Home = () => <Content title="Home" />;
 
 export default Home;

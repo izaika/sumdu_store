@@ -1,5 +1,6 @@
 import React from 'react';
+import Content from '../../Content';
 
-const Orders = () => <div>Orders</div>;
+const Orders = () => <Content title="Orders" />;
 
 export default Orders;

@@ -4,10 +4,14 @@ import { Form, FormControl, FormGroup, Col, Button, ControlLabel } from 'react-b
 import Content from '../../Content';
 
 class LogIn extends Component {
+  onSubmit = event => {
+    event.preventDefault();
+  };
+
   render() {
     return (
       <Content title="Log In">
-        <Form horizontal>
+        <Form horizontal onSubmit={this.onSubmit}>
           <FormGroup controlId="formHorizontalEmail">
             <Col componentClass={ControlLabel} sm={1}>
               Email
@@ -31,7 +35,7 @@ class LogIn extends Component {
               </Button>
             </Col>
           </FormGroup>
-        </Form>;
+        </Form>
       </Content>
     );
   }
