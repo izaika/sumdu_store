@@ -14,7 +14,22 @@ export function* logInSaga(action) {
       url: 'auth/login',
       data: { email, password }
     });
-    yield put(saveToken(response.data.api_key));
+    const token = response.data.api_key;
+    axios.defaults.headers = { Authorization: `bearer ${token}` };
+    yield put(saveToken(token));
   } catch (error) {}
   yield put(stopProcess(actionTypes.AUTH_LOG_IN));
+}
+
+export function* logOutSaga(action) {
+  yield put(startProcess(actionTypes.AUTH_LOG_OUT));
+  try {
+    const response = yield axios({
+      method: 'post',
+      url: 'auth/logout'
+    });
+    console.log(response);
+    axios.defaults.headers = {};
+  } catch (error) {}
+  yield put(stopProcess(actionTypes.AUTH_LOG_OUT));
 }

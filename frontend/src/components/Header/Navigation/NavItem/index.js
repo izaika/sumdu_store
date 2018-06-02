@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 
-import Styles from './NavItem.scss';
-
 const NavItem = props => {
   let isActive = false;
 
