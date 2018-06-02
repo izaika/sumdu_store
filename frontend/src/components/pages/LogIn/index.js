@@ -30,7 +30,7 @@ class LogIn extends Component {
       <Content title="Log In">
         <Form horizontal onSubmit={this.onSubmit}>
           <FormGroup controlId="formHorizontalEmail">
-            <Col componentClass={ControlLabel} sm={1}>
+            <Col componentClass={ControlLabel} sm={2}>
               Email
             </Col>
             <Col sm={3}>
@@ -44,7 +44,7 @@ class LogIn extends Component {
             </Col>
           </FormGroup>
           <FormGroup controlId="formHorizontalPassword">
-            <Col componentClass={ControlLabel} sm={1}>
+            <Col componentClass={ControlLabel} sm={2}>
               Password
             </Col>
             <Col sm={3}>
@@ -60,7 +60,7 @@ class LogIn extends Component {
             </Col>
           </FormGroup>
           <FormGroup>
-            <Col smOffset={1} sm={3}>
+            <Col smOffset={2} sm={3}>
               <Button type="submit" bsStyle="primary">
                 Log in
               </Button>

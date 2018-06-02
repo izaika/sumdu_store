@@ -1,7 +1,11 @@
 import React, { Component, Fragment } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import axios from 'axios';
+import { connect } from 'react-redux';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 
+import config from '../../shared/config';
 import routes from '../../shared/routes';
+import { setToken } from '../../store/actions/auth';
 
 import Styles from './app.scss';
 
@@ -17,7 +21,13 @@ import '../../../node_modules/bootstrap-css-only/css/bootstrap.min.css';
 import '../../../node_modules/bootstrap-css-only/css/bootstrap-theme.min.css';
 
 class App extends Component {
-  componentDidMount() {}
+  componentDidMount() {
+    const token = localStorage.getItem(`${config.app_key}_token`);
+    if (token) {
+      axios.defaults.headers = { Authorization: `bearer ${token}` };
+      this.props.setToken(token);
+    }
+  }
 
   render() {
     return (
@@ -36,4 +46,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(connect(reduxState => ({ isLoggedIn: !!reduxState.auth.token }), { setToken })(App));

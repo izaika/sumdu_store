@@ -9,6 +9,7 @@
     "svg:optimize": "find ./src/assets -type f -name '*.svg' -print0 | xargs -0 -n 1 -P 6 svgo"
   },
   "dependencies": {
+    "alertify.js": "^1.0.12",
     "axios": "^0.18.0",
     "bootstrap-css-only": "3.3.7",
     "connected-react-router": "^4.3.0",
@@ -38,7 +39,7 @@
     "style-loader": "^0.21.0",
     "svg-react-loader": "^0.4.5",
     "webpack": "^4.10.0",
-    "webpack-cli": "^2.1.4",
+    "webpack-cli": "^2.1.5",
     "webpack-dev-server": "^3.1.4"
   }
 }

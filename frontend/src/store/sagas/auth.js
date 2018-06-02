@@ -1,9 +1,11 @@
 import axios from 'axios';
+import alertify from 'alertify.js';
 import { put } from 'redux-saga/effects';
 
+import config from '../../shared/config';
 import * as actionTypes from '../actions/types';
 import { startProcess, stopProcess } from '../actions/process';
-import { saveToken } from '../actions/auth';
+import { setToken } from '../actions/auth';
 
 export function* logInSaga(action) {
   const { email, password } = action;
@@ -15,8 +17,10 @@ export function* logInSaga(action) {
       data: { email, password }
     });
     const token = response.data.api_key;
+    localStorage.setItem(`${config.app_key}_token`, token);
     axios.defaults.headers = { Authorization: `bearer ${token}` };
-    yield put(saveToken(token));
+    alertify.success('Successfully logged in.');
+    yield put(setToken(token));
   } catch (error) {}
   yield put(stopProcess(actionTypes.AUTH_LOG_IN));
 }
@@ -28,7 +32,7 @@ export function* logOutSaga(action) {
       method: 'post',
       url: 'auth/logout'
     });
-    console.log(response);
+    localStorage.removeItem(`${config.app_key}_token`);
     axios.defaults.headers = {};
   } catch (error) {}
   yield put(stopProcess(actionTypes.AUTH_LOG_OUT));
