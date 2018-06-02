@@ -21,7 +21,9 @@ export function* logInSaga(action) {
     axios.defaults.headers = { Authorization: `bearer ${token}` };
     alertify.success('Successfully logged in.');
     yield put(setToken(token));
-  } catch (error) {}
+  } catch (error) {
+    alertify.error('Invalid login or password');
+  }
   yield put(stopProcess(actionTypes.AUTH_LOG_IN));
 }
 
