@@ -9,7 +9,7 @@ import { setToken } from '../actions/auth';
 
 export function* logInSaga(action) {
   const { email, password } = action;
-  yield put(startProcess(actionTypes.AUTH_LOG_IN));
+  yield put(startProcess(actionTypes.LOG_IN));
   try {
     const response = yield axios({
       method: 'post',
@@ -22,13 +22,13 @@ export function* logInSaga(action) {
     alertify.success('Successfully logged in.');
     yield put(setToken(token));
   } catch (error) {
-    alertify.error('Invalid login or password');
+    alertify.error('Invalid login or password.');
   }
-  yield put(stopProcess(actionTypes.AUTH_LOG_IN));
+  yield put(stopProcess(actionTypes.LOG_IN));
 }
 
 export function* logOutSaga(action) {
-  yield put(startProcess(actionTypes.AUTH_LOG_OUT));
+  yield put(startProcess(actionTypes.LOG_OUT));
   try {
     const response = yield axios({
       method: 'post',
@@ -36,6 +36,9 @@ export function* logOutSaga(action) {
     });
     localStorage.removeItem(`${config.app_key}_token`);
     axios.defaults.headers = {};
-  } catch (error) {}
-  yield put(stopProcess(actionTypes.AUTH_LOG_OUT));
+    alertify.success('Successfully logged out.');
+  } catch (error) {
+    alertify.error('Something went wrong.');
+  }
+  yield put(stopProcess(actionTypes.LOG_OUT));
 }

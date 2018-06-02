@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { Nav } from 'react-bootstrap';
@@ -14,12 +15,14 @@ const Navigation = props => (
     {props.isLoggedIn ? (
       <Fragment>
         <NavItem to={routes.orders}>Orders</NavItem>
+        <NavItem to={routes.users}>Users</NavItem>
         <li role="presentation">
           <a
             href="#"
             onClick={event => {
               event.preventDefault();
               props.logOut();
+              props.history.push(routes.home);
             }}
           >
             Log Out
@@ -32,4 +35,4 @@ const Navigation = props => (
   </Nav>
 );
 
-export default connect(reduxState => ({ isLoggedIn: !!reduxState.auth.token }), { logOut })(Navigation);
+export default withRouter(connect(reduxState => ({ isLoggedIn: !!reduxState.auth.token }), { logOut })(Navigation));

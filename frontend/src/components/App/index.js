@@ -16,6 +16,7 @@ import Home from '../pages/Home';
 import LogIn from '../pages/LogIn';
 import Orders from '../pages/Orders';
 import Products from '../pages/Products';
+import Users from '../pages/Users';
 
 import '../../../node_modules/bootstrap-css-only/css/bootstrap.min.css';
 import '../../../node_modules/bootstrap-css-only/css/bootstrap-theme.min.css';
@@ -35,10 +36,11 @@ class App extends Component {
         <Header />
         <Switch>
           <Route path={routes.home} exact component={Home} />
-          <Route path={routes.logIn} component={LogIn} />
-          <Route path={routes.orders} component={Orders} />
           <Route path={routes.products} component={Products} />
-          <Redirect to="/" />
+          <Route path={routes.orders} component={Orders} />
+          <Route path={routes.users} component={Users} />
+          <Route path={routes.logIn} component={LogIn} />
+          <Redirect to={routes.home} />
         </Switch>
         <Footer />
       </div>

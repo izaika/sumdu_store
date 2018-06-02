@@ -1,0 +1,64 @@
+.skCubeGrid {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  margin-left: -20px;
+  transition: opacity 0.7s ease-out;
+  opacity: 0;
+}
+
+.shown {
+  opacity: 1;
+}
+
+.hidden {
+  opacity: 0;
+}
+
+.skCubeGrid .skCube {
+  width: 33%;
+  height: 33%;
+  background-color: #333;
+  float: left;
+  animation: skCubeGridScaleDelay 1.3s infinite ease-in-out;
+}
+.skCubeGrid .skCube1 {
+  animation-delay: 0.2s;
+}
+.skCubeGrid .skCube2 {
+  animation-delay: 0.3s;
+}
+.skCubeGrid .skCube3 {
+  animation-delay: 0.4s;
+}
+.skCubeGrid .skCube4 {
+  animation-delay: 0.1s;
+}
+.skCubeGrid .skCube5 {
+  animation-delay: 0.2s;
+}
+.skCubeGrid .skCube6 {
+  animation-delay: 0.3s;
+}
+.skCubeGrid .skCube7 {
+  animation-delay: 0s;
+}
+.skCubeGrid .skCube8 {
+  animation-delay: 0.1s;
+}
+.skCubeGrid .skCube9 {
+  animation-delay: 0.2s;
+}
+
+@keyframes skCubeGridScaleDelay {
+  0%,
+  70%,
+  100% {
+    transform: scale3D(1, 1, 1);
+  }
+  35% {
+    transform: scale3D(0, 0, 1);
+  }
+}

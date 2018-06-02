@@ -3,5 +3,6 @@ export default {
   products: '/products',
   orders: '/orders',
   logIn: '/login',
-  logOut: '/logout'
+  logOut: '/logout',
+  users: '/users'
 };

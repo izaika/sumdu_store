@@ -10,8 +10,15 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
-        return $this->success($users);
+        $users = [];
+        foreach (User::all() as $index => $user) {
+            $users[$index] = [
+                'name' => $user->name,
+                'email' => $user->email,
+                'updatedAt' => strtotime($user->updated_at),
+            ];
+        }
+        return $this->success(['users' => $users]);
     }
 
     public function store(Request $request)
