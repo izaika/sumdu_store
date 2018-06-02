@@ -2,5 +2,6 @@ export default {
   home: '/',
   products: '/products',
   orders: '/orders',
-  logIn: '/login'
+  logIn: '/login',
+  logOut: '/logout'
 };
