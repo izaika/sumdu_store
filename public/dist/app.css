@@ -10,6 +10,14 @@
   .app__app___l7c1I svg,
   .app__app___l7c1I img {
     display: block; }
+  .app__app___l7c1I button,
+  .app__app___l7c1I a,
+  .app__app___l7c1I input,
+  .app__app___l7c1I textarea {
+    outline: none !important; }
+  .app__app___l7c1I button svg {
+    fill: #fff;
+    display: inline; }
 
 .header__logo___3E5cA {
   padding-top: 11px;

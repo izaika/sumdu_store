@@ -39,8 +39,12 @@ class UserController extends Controller
         if (!$user) {
             return $this->noUserResponse();
         }
+        $result = [
+            'name' => $user->name,
+            'email' => $user->email,
+        ];
 
-        return $this->success(['user' => $user]);
+        return $this->success(['user' => $result]);
     }
 
     public function update(Request $request, $id)
@@ -51,6 +55,7 @@ class UserController extends Controller
         }
 
         $this->validateRequest($request);
+        $user->name = $request->get('name');
         $user->email = $request->get('email');
         $user->password = Hash::make($request->get('password'));
         $user->save();

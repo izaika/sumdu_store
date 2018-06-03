@@ -26,7 +26,7 @@ class Users extends Component {
   };
 
   render() {
-    const { users, match } = this.props;
+    const { users, match, isLoggedIn } = this.props;
     return (
       <Content title="Users">
         <Switch>
@@ -35,8 +35,8 @@ class Users extends Component {
             exact
             render={() => !!users.length && <Grid users={users} openNestedRoute={this.openNestedRoute} />}
           />
-          <Route path={`${match.path}/new`} render={() => <Form isNew />} />
-          <Route path={`${match.path}/:id/edit`} render={() => <Form />} />
+          <Route path={`${match.path}/new`} render={() => <Form isNew isLoggedIn={isLoggedIn} />} />
+          <Route path={`${match.path}/:id/edit`} render={() => <Form isLoggedIn={isLoggedIn} />} />
         </Switch>
       </Content>
     );

@@ -9,3 +9,11 @@ export const addUser = (history, name, email, password) => ({
   email,
   password
 });
+export const updateUser = (history, id, name, email, password) => ({
+  type: actionTypes.UPDATE_USER,
+  history,
+  id,
+  name,
+  email,
+  password
+});

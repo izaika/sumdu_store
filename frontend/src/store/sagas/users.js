@@ -35,3 +35,21 @@ export function* addUserSaga(action) {
   }
   yield put(stopProcess(actionTypes.ADD_USER));
 }
+
+export function* updateUserSaga(action) {
+  yield put(startProcess(actionTypes.UPDATE_USER));
+  const { history, id, name, email, password } = action;
+  try {
+    const response = yield axios({
+      method: 'put',
+      url: `users/${id}`,
+      data: { name, email, password }
+    });
+    yield put(getUsers());
+    history.push(routes.users);
+    alertify.success(`User ${name}<${email}> has been updated.`);
+  } catch (error) {
+    alertify.error('Cannot update user. Please try again later.');
+  }
+  yield put(stopProcess(actionTypes.UPDATE_USER));
+}

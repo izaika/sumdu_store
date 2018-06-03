@@ -1,14 +1,18 @@
+import axios from 'axios';
+import alertify from 'alertify.js';
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { Form, FormControl, FormGroup, Col, Button, ButtonToolbar, ControlLabel, Clearfix } from 'react-bootstrap';
 
+import * as actionTypes from '../../../store/actions/types';
 import routes from '../../../shared/routes';
-import { addUser } from '../../../store/actions/users';
+import { addUser, updateUser } from '../../../store/actions/users';
+import { startProcess, stopProcess } from '../../../store/actions/process';
 
 class FormComponent extends Component {
-  static propTypes = { isNew: PropTypes.bool };
+  static propTypes = { isNew: PropTypes.bool, isLoggedIn: PropTypes.bool.isRequired };
   static defaultTypes = { isNew: false };
 
   state = { name: '', email: '', password: '' };
@@ -20,16 +24,36 @@ class FormComponent extends Component {
 
   componentDidMount() {
     const { props } = this;
-    if (props.isNew) {
-      // TODO: get user data
-    }
+    if (props.isLoggedIn && !props.isNew) this.getUserData();
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { props } = this;
+    if (!prevProps.isLoggedIn && this.props.isLoggedIn && !props.isNew) this.getUserData();
+  }
+
+  getUserData = () => {
+    const { props } = this;
+    axios({
+      method: 'get',
+      url: `users/${props.match.params.id}`
+    })
+      .then(response => {
+        const { name, email } = response.data.user;
+        this.setState({ name, email });
+      })
+      .catch(error => {
+        alertify.error('Cannot get user data. Please try again later.');
+      });
+  };
 
   onSubmit = event => {
     event.preventDefault();
     const { props, state } = this;
     if (props.isNew) {
       props.addUser(props.history, state.name, state.email, state.password);
+    } else {
+      props.updateUser(props.history, props.match.params.id, state.name, state.email, state.password);
     }
   };
 
@@ -103,4 +127,4 @@ class FormComponent extends Component {
   }
 }
 
-export default withRouter(connect(null, { addUser })(FormComponent));
+export default withRouter(connect(null, { addUser, updateUser, startProcess, stopProcess })(FormComponent));
