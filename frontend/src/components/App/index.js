@@ -24,10 +24,10 @@ import '../../../node_modules/bootstrap-css-only/css/bootstrap-theme.min.css';
 class App extends Component {
   componentDidMount() {
     const token = localStorage.getItem(`${config.app_key}_token`);
-    const userId = localStorage.getItem(`${config.app_key}_userId`);
+    const userId = parseInt(localStorage.getItem(`${config.app_key}_userId`), 10);
     if (token && userId) {
       axios.defaults.headers = { Authorization: `bearer ${token}` };
-      this.props.setToken(token);
+      this.props.setToken(token, userId);
     }
   }
 
