@@ -24,7 +24,8 @@ import '../../../node_modules/bootstrap-css-only/css/bootstrap-theme.min.css';
 class App extends Component {
   componentDidMount() {
     const token = localStorage.getItem(`${config.app_key}_token`);
-    if (token) {
+    const userId = localStorage.getItem(`${config.app_key}_userId`);
+    if (token && userId) {
       axios.defaults.headers = { Authorization: `bearer ${token}` };
       this.props.setToken(token);
     }

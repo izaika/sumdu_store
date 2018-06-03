@@ -53,3 +53,19 @@ export function* updateUserSaga(action) {
   }
   yield put(stopProcess(actionTypes.UPDATE_USER));
 }
+
+export function* deleteUserSaga(action) {
+  yield put(startProcess(actionTypes.DELETE_USER));
+  const { id, name, email } = action;
+  try {
+    yield axios({
+      method: 'delete',
+      url: `users/${id}`
+    });
+    alertify.success(`User ${name}<${email}> has been deleted.`);
+    yield put(getUsers());
+  } catch (error) {
+    alertify.error('Cannot delete user. Please try again later.');
+  }
+  yield put(stopProcess(actionTypes.DELETE_USER));
+}

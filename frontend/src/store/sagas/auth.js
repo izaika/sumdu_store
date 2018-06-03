@@ -16,11 +16,13 @@ export function* logInSaga(action) {
       url: 'auth/login',
       data: { email, password }
     });
-    const token = response.data.api_key;
+    const token = response.data.apiKey;
+    const userId = response.data.userId;
     localStorage.setItem(`${config.app_key}_token`, token);
+    localStorage.setItem(`${config.app_key}_userId`, userId);
     axios.defaults.headers = { Authorization: `bearer ${token}` };
     alertify.success('Successfully logged in.');
-    yield put(setToken(token));
+    yield put(setToken(token, userId));
   } catch (error) {
     alertify.error('Invalid login or password.');
   }
@@ -35,6 +37,7 @@ export function* logOutSaga(action) {
       url: 'auth/logout'
     });
     localStorage.removeItem(`${config.app_key}_token`);
+    localStorage.removeItem(`${config.app_key}_userId`);
     axios.defaults.headers = {};
     alertify.success('Successfully logged out.');
   } catch (error) {

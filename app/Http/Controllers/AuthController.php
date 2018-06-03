@@ -33,7 +33,7 @@ class AuthController extends Controller
         if (Hash::check($request->input('password'), $user->password)) {
             $apikey = base64_encode(str_random(40));
             $user->update(['api_key' => $apikey]);
-            return $this->success(['api_key' => $apikey]);
+            return $this->success(['apiKey' => $apikey, 'userId' => $user->id]);
         } else {
             return $this->noAuthorizedResponse();
         }

@@ -23,17 +23,17 @@ const Grid = props => (
         </tr>
       </thead>
       <tbody>
-        {props.users.map(user => (
-          <tr key={user.email}>
-            <td>{user.name}</td>
-            <td>{user.email}</td>
-            <td>{user.updatedAt}</td>
+        {props.users.map(({ email, name, updatedAt, id }) => (
+          <tr key={email}>
+            <td>{name}</td>
+            <td>{email}</td>
+            <td>{updatedAt}</td>
             <td>
               <ButtonToolbar>
-                <Button bsStyle="warning" bsSize="xsmall" onClick={() => props.openNestedRoute(`${user.id}/edit`)}>
+                <Button bsStyle="warning" bsSize="xsmall" onClick={() => props.openNestedRoute(`${id}/edit`)}>
                   Edit
                 </Button>
-                <Button bsStyle="danger" bsSize="xsmall">
+                <Button bsStyle="danger" bsSize="xsmall" onClick={() => props.deleteUser(id, name, email)}>
                   Delete
                 </Button>
               </ButtonToolbar>
@@ -54,7 +54,8 @@ Grid.propTypes = {
       updatedAt: PropTypes.number.isRequired
     })
   ),
-  openNestedRoute: PropTypes.func.isRequired
+  openNestedRoute: PropTypes.func.isRequired,
+  deleteUser: PropTypes.func.isRequired
 };
 
 export default Grid;
