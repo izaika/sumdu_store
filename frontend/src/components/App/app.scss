@@ -12,4 +12,16 @@
   img {
     display: block;
   }
+  button,
+  a,
+  input,
+  textarea {
+    outline: none !important;
+  }
+  button {
+    svg {
+      fill: #fff;
+      display: inline;
+    }
+  }
 }

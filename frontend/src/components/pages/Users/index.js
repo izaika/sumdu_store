@@ -1,10 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Table } from 'react-bootstrap';
+import { Switch, Route } from 'react-router-dom';
 
 import { getUsers } from '../../../store/actions/users';
 import routes from '../../../shared/routes';
 import Content from '../../Content';
+
+import Grid from './Grid';
+import Form from './Form';
 
 class Users extends Component {
   componentDidMount() {
@@ -17,32 +20,24 @@ class Users extends Component {
     }
   }
 
+  openNestedRoute = route => {
+    const { match, history } = this.props;
+    history.push(`${match.path}/${route}`);
+  };
+
   render() {
-    const { users } = this.props;
+    const { users, match } = this.props;
     return (
       <Content title="Users">
-        {!!users.length && (
-          <Table striped hover>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Last Modified</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map(user => (
-                <tr key={user.email}>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.updatedAt}</td>
-                  <td>&nbsp;</td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        )}
+        <Switch>
+          <Route
+            path={match.path}
+            exact
+            render={() => !!users.length && <Grid users={users} openNestedRoute={this.openNestedRoute} />}
+          />
+          <Route path={`${match.path}/new`} render={() => <Form isNew />} />
+          <Route path={`${match.path}/:id/edit`} render={() => <Form />} />
+        </Switch>
       </Content>
     );
   }

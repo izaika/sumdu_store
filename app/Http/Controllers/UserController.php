@@ -13,6 +13,7 @@ class UserController extends Controller
         $users = [];
         foreach (User::all() as $index => $user) {
             $users[$index] = [
+                'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
                 'updatedAt' => strtotime($user->updated_at),
