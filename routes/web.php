@@ -9,6 +9,14 @@ $router->group(['prefix' => '/api'], function () use ($router) {
         $router->delete('/{id}', 'UserController@destroy');
     });
 
+    $router->group(['prefix' => '/categories', 'middleware' => 'auth'], function () use ($router) {
+        $router->get('/', 'CategoryController@index');
+        $router->post('/', 'CategoryController@store');
+        $router->get('/{id}', 'CategoryController@show');
+        $router->put('/{id}', 'CategoryController@update');
+        $router->delete('/{id}', 'CategoryController@destroy');
+    });
+
     $router->group(['prefix' => '/auth'], function () use ($router) {
         $router->post('/login', ['uses' => 'AuthController@logIn']);
         $router->post('/logout', ['uses' => 'AuthController@logOut', 'middleware' => 'auth']);
