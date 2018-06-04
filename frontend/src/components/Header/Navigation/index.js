@@ -15,6 +15,7 @@ const Navigation = props => (
     {props.isLoggedIn ? (
       <Fragment>
         <NavItem to={routes.orders}>Orders</NavItem>
+        <NavItem to={routes.categories}>Categories</NavItem>
         <NavItem to={routes.users}>Users</NavItem>
         <li role="presentation">
           <a
@@ -35,4 +36,9 @@ const Navigation = props => (
   </Nav>
 );
 
-export default withRouter(connect(reduxState => ({ isLoggedIn: !!reduxState.auth.token }), { logOut })(Navigation));
+export default withRouter(
+  connect(
+    reduxState => ({ isLoggedIn: !!reduxState.auth.token }),
+    { logOut }
+  )(Navigation)
+);

@@ -4,5 +4,6 @@ export default {
   orders: '/orders',
   logIn: '/login',
   logOut: '/logout',
-  users: '/users'
+  users: '/users',
+  categories: '/categories'
 };

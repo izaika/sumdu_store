@@ -37,17 +37,13 @@ class AuthServiceProvider extends ServiceProvider
         // });
 
         $this->app['auth']->viaRequest('api', function ($request) {
-            try {
-                $key = AuthController::getAuthKeyFromRequest($request);
-                $user = User::where('api_key', $key)->first();
+            $key = AuthController::getAuthKeyFromRequest($request);
+            $user = User::where('api_key', $key)->first();
 
-                if (!empty($user)) {
-                    $request->request->add(['user_id' => $user->id]);
-                }
-                return $user;
-            } catch (Exception $e) {
-
+            if (!empty($user)) {
+                $request->request->add(['user_id' => $user->id]);
             }
+            return $user;
         });
     }
 }

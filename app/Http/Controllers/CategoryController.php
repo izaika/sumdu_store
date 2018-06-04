@@ -9,15 +9,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = [];
-        foreach (Category::all() as $index => $category) {
-            $categories[$index] = [
-                'id' => $category->id,
-                'title' => $category->title,
-                'updatedAt' => strtotime($category->updated_at),
-            ];
-        }
-        return $this->success(['categories' => $categories]);
+        return $this->success(['categories' => Category::all()]);
     }
 
     public function store(Request $request)

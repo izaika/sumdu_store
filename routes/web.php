@@ -9,12 +9,12 @@ $router->group(['prefix' => '/api'], function () use ($router) {
         $router->delete('/{id}', 'UserController@destroy');
     });
 
-    $router->group(['prefix' => '/categories', 'middleware' => 'auth'], function () use ($router) {
+    $router->group(['prefix' => '/categories'], function () use ($router) {
         $router->get('/', 'CategoryController@index');
-        $router->post('/', 'CategoryController@store');
-        $router->get('/{id}', 'CategoryController@show');
-        $router->put('/{id}', 'CategoryController@update');
-        $router->delete('/{id}', 'CategoryController@destroy');
+        $router->post('/', ['uses' => 'CategoryController@store', 'middleware' => 'auth']);
+        $router->get('/{id}', ['uses' => 'CategoryController@show', 'middleware' => 'auth']);
+        $router->put('/{id}', ['uses' => 'CategoryController@update', 'middleware' => 'auth']);
+        $router->delete('/{id}', ['uses' => 'CategoryController@destroy', 'middleware' => 'auth']);
     });
 
     $router->group(['prefix' => '/auth'], function () use ($router) {

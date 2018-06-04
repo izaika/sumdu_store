@@ -3,21 +3,22 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 
-import { getUsers, deleteUser } from '../../../store/actions/users';
+import { getCategories, deleteCategory } from '../../../store/actions/categories';
+import { sortByTitle } from '../../../shared/utils';
 import routes from '../../../shared/routes';
 import Content from '../../Content';
 
 import Grid from './Grid';
 import Form from './Form';
 
-class Users extends Component {
+class Categories extends Component {
   componentDidMount() {
-    if (this.props.isLoggedIn) this.props.getUsers();
+    if (this.props.isLoggedIn) this.props.getCategories();
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (!prevProps.isLoggedIn && this.props.isLoggedIn) {
-      this.props.getUsers();
+      this.props.getCategories();
     }
   }
 
@@ -26,24 +27,24 @@ class Users extends Component {
     history.push(`${match.path}/${route}`);
   };
 
-  deleteUserHandler = (id, name, email) => {
-    const { props } = this;
-    if (props.users.length < 2) return alertify.error('Can not delete the last user.');
-    if (props.loggedUserId === id) return alertify.error("You can't delete yourself.");
-
-    alertify.confirm(`Are you sure to delete user ${name}<${email}>?`, () => props.deleteUser(id, name, email));
+  deleteCategoryHandler = (id, title) => {
+    alertify.confirm(`Are you sure to delete category ${title}?`, () => this.props.deleteCategory(id));
   };
 
   render() {
-    const { users, match, isLoggedIn } = this.props;
+    const { categories, match, isLoggedIn } = this.props;
     return (
-      <Content title="Users">
+      <Content title="Categories">
         <Switch>
           <Route
             path={match.path}
             exact
             render={() => (
-              <Grid users={users} openNestedRoute={this.openNestedRoute} deleteUser={this.deleteUserHandler} />
+              <Grid
+                categories={sortByTitle(categories)}
+                openNestedRoute={this.openNestedRoute}
+                deleteCategory={this.deleteCategoryHandler}
+              />
             )}
           />
           <Route path={`${match.path}/new`} render={() => <Form isNew isLoggedIn={isLoggedIn} />} />
@@ -57,11 +58,10 @@ class Users extends Component {
 export default connect(
   reduxState => ({
     isLoggedIn: !!reduxState.auth.token,
-    users: reduxState.users,
-    loggedUserId: reduxState.auth.userId
+    categories: reduxState.categories
   }),
   {
-    getUsers,
-    deleteUser
+    getCategories,
+    deleteCategory
   }
-)(Users);
+)(Categories);

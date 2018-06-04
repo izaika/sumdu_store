@@ -11,12 +11,12 @@ class Category extends Model
      *
      * @var array
      */
-    protected $fillable = ['id', 'title', 'updated_at'];
+    protected $fillable = ['id', 'title'];
 
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
-    protected $hidden = ['created_at'];
+    protected $hidden = ['created_at', 'updated_at'];
 }

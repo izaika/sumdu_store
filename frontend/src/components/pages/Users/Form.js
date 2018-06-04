@@ -60,7 +60,7 @@ class FormComponent extends Component {
   render() {
     return (
       <Fragment>
-        <Col smOffset={2} sm={3}>
+        <Col smOffset={2} sm={10}>
           <h2>{this.props.isNew ? 'Add User' : 'Edit User'}</h2>
         </Col>
         <Clearfix />
@@ -71,7 +71,7 @@ class FormComponent extends Component {
             </Col>
             <Col sm={3}>
               <FormControl
-                type="name"
+                type="text"
                 placeholder="Name"
                 required
                 value={this.state.name}
@@ -127,4 +127,9 @@ class FormComponent extends Component {
   }
 }
 
-export default withRouter(connect(null, { addUser, updateUser, startProcess, stopProcess })(FormComponent));
+export default withRouter(
+  connect(
+    null,
+    { addUser, updateUser, startProcess, stopProcess }
+  )(FormComponent)
+);
