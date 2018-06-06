@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Product extends Model
 {
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['id', 'title'];
+    protected $fillable = ['id', 'title', 'description', 'price', 'category_id'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -21,10 +21,10 @@ class Category extends Model
     protected $hidden = ['created_at', 'updated_at'];
 
     /**
-     * Get the products for the categories.
+     * Get the category for the product.
      */
-    public function products()
+    public function category()
     {
-        return $this->hasMany('App\Product');
+        return $this->belongsTo('App\Category');
     }
 }

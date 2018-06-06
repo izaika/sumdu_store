@@ -10,12 +10,11 @@ import routes from '../../../shared/routes';
 
 const Navigation = props => (
   <Nav pullRight>
-    <NavItem to={routes.home}>Home</NavItem>
-    <NavItem to={routes.products}>Products</NavItem>
     {props.isLoggedIn ? (
       <Fragment>
         <NavItem to={routes.orders}>Orders</NavItem>
         <NavItem to={routes.categories}>Categories</NavItem>
+        <NavItem to={routes.productsAdmin}>Products</NavItem>
         <NavItem to={routes.users}>Users</NavItem>
         <li role="presentation">
           <a
@@ -31,7 +30,11 @@ const Navigation = props => (
         </li>
       </Fragment>
     ) : (
-      <NavItem to={routes.logIn}>Log In</NavItem>
+      <Fragment>
+        <NavItem to={routes.home}>Home</NavItem>
+        <NavItem to={routes.products}>Products</NavItem>
+        <NavItem to={routes.logIn}>Log In</NavItem>
+      </Fragment>
     )}
   </Nav>
 );

@@ -16,6 +16,7 @@ import Home from '../pages/Home';
 import LogIn from '../pages/LogIn';
 import Orders from '../pages/Orders';
 import Products from '../pages/Products';
+import ProductsAdmin from '../pages/ProductsAdmin';
 import Users from '../pages/Users';
 import Categories from '../pages/Categories';
 
@@ -39,6 +40,7 @@ class App extends Component {
         <Switch>
           <Route path={routes.home} exact component={Home} />
           <Route path={routes.products} component={Products} />
+          <Route path={routes.productsAdmin} component={ProductsAdmin} />
           <Route path={routes.orders} component={Orders} />
           <Route path={routes.users} component={Users} />
           <Route path={routes.categories} component={Categories} />

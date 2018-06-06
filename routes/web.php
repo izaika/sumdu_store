@@ -17,6 +17,14 @@ $router->group(['prefix' => '/api'], function () use ($router) {
         $router->delete('/{id}', ['uses' => 'CategoryController@destroy', 'middleware' => 'auth']);
     });
 
+    $router->group(['prefix' => '/products'], function () use ($router) {
+        $router->get('/', 'ProductController@index');
+        $router->get('/{id}', ['uses' => 'ProductController@show']);
+        $router->post('/', ['uses' => 'ProductController@store', 'middleware' => 'auth']);
+        $router->put('/{id}', ['uses' => 'ProductController@update', 'middleware' => 'auth']);
+        $router->delete('/{id}', ['uses' => 'ProductController@destroy', 'middleware' => 'auth']);
+    });
+
     $router->group(['prefix' => '/auth'], function () use ($router) {
         $router->post('/login', ['uses' => 'AuthController@logIn']);
         $router->post('/logout', ['uses' => 'AuthController@logOut', 'middleware' => 'auth']);

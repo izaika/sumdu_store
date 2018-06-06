@@ -5,5 +5,8 @@ export default {
   logIn: '/login',
   logOut: '/logout',
   users: '/users',
-  categories: '/categories'
+  categories: '/categories',
+
+  productsAdmin: '/products-admin',
+  products: '/products'
 };
