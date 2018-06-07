@@ -45,11 +45,14 @@ const store = createStore(
 
 sagaMiddleware.run(watchSagas);
 
+const rootElement = document.getElementById('root');
+window.imgPath = 'http://api.store.loc/images';
+
 ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <App />
     </ConnectedRouter>
   </Provider>,
-  document.getElementById('root')
+  rootElement
 );

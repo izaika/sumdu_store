@@ -33,7 +33,10 @@ class ProductController extends Controller
             'price' => $request->get('price'),
             'category_id' => $request->get('categoryId'),
         ]);
-        return $this->success(["message" => "The product with with id {$product->id} has been created"], 201);
+        return $this->success([
+            "message" => "The product with with id {$product->id} has been created",
+            "productId" => $product->id,
+        ], 201);
     }
 
     public function show($id)
@@ -63,6 +66,7 @@ class ProductController extends Controller
         $product->price = $request->get('price');
         $product->category_id = $request->get('categoryId');
         $product->save();
+
         return $this->success(["message" => "The product with with id {$product->id} has been updated"]);
     }
 
@@ -84,6 +88,18 @@ class ProductController extends Controller
             'categoryId' => 'required',
         ];
         $this->validate($request, $rules);
+    }
+
+    public function fileUpload(Request $request)
+    {
+        $this->validate($request, ['image' => 'required|image|mimes:jpg,jpeg|max:2048']);
+        $image = $request->file('image');
+        $product_id = $request->get('productId');
+        $ext = $image->getClientOriginalExtension();
+        $image_destination = $this->getPublicPath("images/$product_id");
+        $image->move($image_destination, "image.jpg");
+        // chmod($image_destination, 0777);
+        return $this->success(["message" => "Image was uploaded"]);
     }
 
     private function noProductResponse()

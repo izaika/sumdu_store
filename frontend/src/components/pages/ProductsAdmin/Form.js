@@ -4,11 +4,9 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { Form, FormControl, FormGroup, Col, Button, ButtonToolbar, ControlLabel, Clearfix } from 'react-bootstrap';
+import { Form, FormControl, FormGroup, Col, Button, ButtonToolbar, ControlLabel, FieldGroup } from 'react-bootstrap';
 
-import * as actionTypes from '../../../store/actions/types';
 import routes from '../../../shared/routes';
-import { sortByTitle } from '../../../shared/utils';
 import { addProduct, updateProduct } from '../../../store/actions/products';
 import { startProcess, stopProcess } from '../../../store/actions/process';
 
@@ -19,9 +17,11 @@ class FormComponent extends Component {
   state = {
     categories: [],
     categoryId: 0,
+    productId: null,
     title: '',
     description: '',
-    price: 0
+    price: 0,
+    uploadedImage: null
   };
 
   setTitle = title => this.setState({ title });
@@ -61,13 +61,15 @@ class FormComponent extends Component {
   onSubmit = event => {
     event.preventDefault();
     const { props, state } = this;
-    const { title, description, price, categoryId } = state;
+    const { title, description, price, categoryId, uploadedImage } = state;
     if (props.isNew) {
-      props.addProduct(props.history, title, description, price, categoryId);
+      props.addProduct(props.history, title, description, price, categoryId, uploadedImage);
     } else {
-      props.updateProduct(props.history, props.match.params.id, title, description, price, categoryId);
+      props.updateProduct(props.history, props.match.params.id, title, description, price, categoryId, uploadedImage);
     }
   };
+
+  onFileInputChange = event => this.setState({ uploadedImage: event.target.files[0] });
 
   render() {
     return (
@@ -77,6 +79,14 @@ class FormComponent extends Component {
         </Col>
         {this.state.categories.length ? (
           <Form horizontal onSubmit={this.onSubmit}>
+            <FormGroup controlId="formControlsFile">
+              <Col componentClass={ControlLabel} sm={2}>
+                Image
+              </Col>
+              <Col sm={3}>
+                <input type="file" id="formControlsFile" onChange={this.onFileInputChange} />
+              </Col>
+            </FormGroup>
             <FormGroup controlId="formHorizontalTitle">
               <Col componentClass={ControlLabel} sm={2}>
                 Title

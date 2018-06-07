@@ -23,6 +23,7 @@ $router->group(['prefix' => '/api'], function () use ($router) {
         $router->post('/', ['uses' => 'ProductController@store', 'middleware' => 'auth']);
         $router->put('/{id}', ['uses' => 'ProductController@update', 'middleware' => 'auth']);
         $router->delete('/{id}', ['uses' => 'ProductController@destroy', 'middleware' => 'auth']);
+        $router->post('/fileUpload', ['uses' => 'ProductController@fileUpload', 'middleware' => 'auth']);
     });
 
     $router->group(['prefix' => '/auth'], function () use ($router) {

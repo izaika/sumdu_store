@@ -6,6 +6,11 @@ use Laravel\Lumen\Routing\Controller as BaseController;
 
 class Controller extends BaseController
 {
+    protected function getPublicPath($path)
+    {
+        return rtrim(app()->basePath('public/' . $path), '/');
+    }
+
     protected function success($data, $code = 200)
     {
         $data['status'] = 0;

@@ -9,6 +9,7 @@ const Grid = props => (
     </Button>
     <Table striped hover>
       <colgroup>
+        <col style={{ width: '200px' }} />
         <col />
         <col />
         <col style={{ width: '101px' }} />
@@ -16,6 +17,7 @@ const Grid = props => (
       </colgroup>
       <thead>
         <tr>
+          <th>Image</th>
           <th>Title</th>
           <th>Category</th>
           <th>Price</th>
@@ -25,6 +27,9 @@ const Grid = props => (
       <tbody>
         {props.products.map(({ id, title, price, categoryId }) => (
           <tr key={`product_${id}`}>
+            <td>
+              <img src={`${imgPath}/${id}/image.jpg`} width={200} alt={title} />
+            </td>
             <td>{title}</td>
             <td>{props.categories.find(category => category.id === categoryId).title}</td>
             <td>{price}</td>

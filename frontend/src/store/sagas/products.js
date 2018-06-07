@@ -20,16 +20,36 @@ export function* getProductsSaga(action) {
 
 export function* addProductSaga(action) {
   yield put(startProcess(actionTypes.ADD_PRODUCT));
-  const { history, title, description, price, categoryId } = action;
+  const { history, title, description, price, categoryId, uploadedImage } = action;
   try {
     const response = yield axios({
       method: 'post',
       url: 'products',
       data: { title, description, price, categoryId }
     });
-    yield put(getProducts());
-    history.push(routes.productsAdmin);
-    alertify.success(`Product ${title} has been added.`);
+
+    if (uploadedImage) {
+      const { productId } = response.data;
+      try {
+        const data = new FormData();
+        data.append('image', uploadedImage, uploadedImage.name);
+        data.append('productId', productId);
+        const imageResponse = yield axios({
+          method: 'post',
+          url: 'products/fileUpload',
+          data
+        });
+        yield put(getProducts());
+        history.push(routes.productsAdmin);
+        alertify.success(`Product ${title} has been added.`);
+      } catch (error) {
+        alertify.error('Cannot save uploaded image. Please try again later.');
+      }
+    } else {
+      yield put(getProducts());
+      history.push(routes.productsAdmin);
+      alertify.success(`Product ${title} has been added.`);
+    }
   } catch (error) {
     alertify.error('Cannot save product. Please try again later.');
   }
@@ -38,16 +58,34 @@ export function* addProductSaga(action) {
 
 export function* updateProductSaga(action) {
   yield put(startProcess(actionTypes.UPDATE_PRODUCT));
-  const { history, id, title, description, price, categoryId } = action;
+  const { history, id, title, description, price, categoryId, uploadedImage } = action;
   try {
     const response = yield axios({
       method: 'put',
       url: `products/${id}`,
       data: { title, description, price, categoryId }
     });
-    yield put(getProducts());
-    history.push(routes.productsAdmin);
-    alertify.success(`Product has been updated.`);
+    if (uploadedImage) {
+      try {
+        const data = new FormData();
+        data.append('image', uploadedImage, uploadedImage.name);
+        data.append('productId', id);
+        const imageResponse = yield axios({
+          method: 'post',
+          url: 'products/fileUpload',
+          data
+        });
+        yield put(getProducts());
+        history.push(routes.productsAdmin);
+        alertify.success(`Product has been updated.`);
+      } catch (error) {
+        alertify.error('Cannot save uploaded image. Please try again later.');
+      }
+    } else {
+      yield put(getProducts());
+      history.push(routes.productsAdmin);
+      alertify.success(`Product has been updated.`);
+    }
   } catch (error) {
     alertify.error('Cannot update product. Please try again later.');
   }
