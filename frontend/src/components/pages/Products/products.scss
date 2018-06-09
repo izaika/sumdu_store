@@ -1,0 +1,23 @@
+.categoriesUl {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  input,
+  label {
+    cursor: pointer;
+  }
+}
+
+
+.imageWrap {
+  width: 100%;
+}
+
+.image {
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
