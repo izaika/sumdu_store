@@ -13,6 +13,17 @@ import Grid from './Grid';
 import Form from './Form';
 
 class Products extends Component {
+  state = {
+    filterByCategoryId: 0
+  };
+
+  setFilterByCategoryId = id => this.setState({ filterByCategoryId: parseInt(id, 10) });
+
+  getFilteredProducts = () =>
+    this.state.filterByCategoryId === 0
+      ? this.props.products
+      : this.props.products.filter(product => product.categoryId === this.state.filterByCategoryId);
+
   componentDidMount() {
     if (this.props.isLoggedIn) {
       this.props.getCategories();
@@ -46,10 +57,12 @@ class Products extends Component {
             exact
             render={() => (
               <Grid
-                products={sortByTitle(products)}
+                products={sortByTitle(this.getFilteredProducts(products))}
                 categories={sortByTitle(categories)}
                 openNestedRoute={this.openNestedRoute}
                 deleteProduct={this.deleteProductHandler}
+                filterByCategoryId={this.state.filterByCategoryId}
+                setFilterByCategoryId={this.setFilterByCategoryId}
               />
             )}
           />

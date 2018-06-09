@@ -56,13 +56,12 @@ export function* updateCategorySaga(action) {
 
 export function* deleteCategorySaga(action) {
   yield put(startProcess(actionTypes.DELETE_CATEGORY));
-  const { id, title } = action;
   try {
     yield axios({
       method: 'delete',
-      url: `categories/${id}`
+      url: `categories/${action.id}`
     });
-    alertify.success(`Category ${title} has been deleted.`);
+    alertify.success(`Category has been deleted.`);
     yield put(getCategories());
   } catch (error) {
     alertify.error('Cannot delete category. Please try again later.');

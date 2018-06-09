@@ -3,17 +3,6 @@ import PropTypes from 'prop-types';
 import { Table, Button, ButtonToolbar, FormControl, FormGroup, Col, ControlLabel } from 'react-bootstrap';
 
 class Grid extends Component {
-  state = {
-    selectedCategoryId: 0
-  };
-
-  setSelectedCategoryId = id => this.setState({ selectedCategoryId: parseInt(id, 10) });
-
-  getFilteredProducts = () =>
-    this.state.selectedCategoryId === 0
-      ? this.props.products
-      : this.props.products.filter(product => product.categoryId === this.state.selectedCategoryId);
-
   render() {
     const { state, props } = this;
     return (
@@ -30,8 +19,8 @@ class Grid extends Component {
             <FormControl
               componentClass="select"
               required
-              value={state.selectedCategoryId}
-              onChange={event => this.setSelectedCategoryId(event.target.value)}
+              value={props.filterByCategoryId}
+              onChange={event => props.setFilterByCategoryId(event.target.value)}
               style={{ display: 'inline-block', width: '200px', marginLeft: '5px' }}
             >
               <option value={0}>All</option>
@@ -61,7 +50,7 @@ class Grid extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.getFilteredProducts().map(({ id, title, price, categoryId }) => (
+            {props.products.map(({ id, title, price, categoryId }) => (
               <tr key={`product_${id}`}>
                 <td>
                   <img src={`${imgPath}/${id}/image.jpg`} width={200} alt={title} />
@@ -105,7 +94,9 @@ Grid.propTypes = {
     })
   ),
   openNestedRoute: PropTypes.func.isRequired,
-  deleteProduct: PropTypes.func.isRequired
+  deleteProduct: PropTypes.func.isRequired,
+  setFilterByCategoryId: PropTypes.func.isRequired,
+  filterByCategoryId: PropTypes.number.isRequired
 };
 
 export default Grid;

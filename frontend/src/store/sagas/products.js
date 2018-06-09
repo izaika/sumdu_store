@@ -94,13 +94,12 @@ export function* updateProductSaga(action) {
 
 export function* deleteProductSaga(action) {
   yield put(startProcess(actionTypes.DELETE_PRODUCT));
-  const { id, title } = action;
   try {
     yield axios({
       method: 'delete',
-      url: `products/${id}`
+      url: `products/${action.id}`
     });
-    alertify.success(`Product ${title} has been deleted.`);
+    alertify.success(`Product has been deleted.`);
     yield put(getProducts());
   } catch (error) {
     alertify.error('Cannot delete product. Please try again later.');
