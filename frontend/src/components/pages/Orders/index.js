@@ -11,6 +11,17 @@ import Grid from './Grid';
 import Form from './Form';
 
 class Orders extends Component {
+  state = {
+    filterByStatusId: -1
+  };
+
+  setFilterByStatusId = id => this.setState({ filterByStatusId: parseInt(id, 10) });
+
+  getFilteredOrders = () =>
+    this.state.filterByStatusId === -1
+      ? this.props.orders
+      : this.props.orders.filter(order => order.status === this.state.filterByStatusId);
+
   componentDidMount() {
     if (this.props.isLoggedIn) {
       this.props.getOrders();
@@ -34,6 +45,8 @@ class Orders extends Component {
 
   getStatusText = id => {
     switch (id) {
+      case -1:
+        return 'All';
       case 0:
         return 'New';
       case 1:
@@ -45,7 +58,6 @@ class Orders extends Component {
 
   render() {
     const { orders, match, isLoggedIn } = this.props;
-    console.log(orders);
     return (
       <Content title="Orders">
         <Switch>
@@ -55,10 +67,12 @@ class Orders extends Component {
               exact
               render={() => (
                 <Grid
-                  orders={orders}
+                  orders={this.getFilteredOrders()}
                   getStatusText={this.getStatusText}
                   openNestedRoute={this.openNestedRoute}
                   deleteOrder={this.deleteOrderHandler}
+                  filterByStatusId={this.state.filterByStatusId}
+                  setFilterByStatusId={this.setFilterByStatusId}
                 />
               )}
             />

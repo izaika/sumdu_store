@@ -24,7 +24,7 @@ class LogIn extends Component {
   };
 
   render() {
-    if (this.props.isLoggedIn) return <Redirect to={routes.home} />;
+    if (this.props.isLoggedIn) return <Redirect to={routes.orders} />;
 
     return (
       <Content title="Log In">
@@ -72,4 +72,7 @@ class LogIn extends Component {
   }
 }
 
-export default connect(reduxState => ({ isLoggedIn: !!reduxState.auth.token }), { logIn })(LogIn);
+export default connect(
+  reduxState => ({ isLoggedIn: !!reduxState.auth.token }),
+  { logIn }
+)(LogIn);

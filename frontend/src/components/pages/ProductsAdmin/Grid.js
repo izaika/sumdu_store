@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Table, Button, ButtonToolbar, FormControl, FormGroup, Col, ControlLabel } from 'react-bootstrap';
+import { Table, Button, ButtonToolbar, FormControl, FormGroup, Col, ControlLabel, Clearfix } from 'react-bootstrap';
 
 const Grid = props => (
   <Fragment>
@@ -29,6 +29,8 @@ const Grid = props => (
         </FormControl>
       </Col>
     </FormGroup>
+    <Clearfix />
+    <hr />
     <Table striped hover>
       <colgroup>
         <col style={{ width: '200px' }} />

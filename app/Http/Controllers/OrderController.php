@@ -23,7 +23,7 @@ class OrderController extends Controller
                 'comment' => $order->comment,
                 'status' => $order->status,
                 'totalPrice' => '', // TODO: calculate the price
-                'createdAt' => strtotime($order->created_at),
+                'createdAt' => date('d.m.Y H:s', strtotime($order->created_at)),
                 'products' => $productsData['products'],
                 'totalPrice' => $productsData['totalPrice'],
             ];
@@ -66,7 +66,7 @@ class OrderController extends Controller
             'status' => $order->status,
             'totalPrice' => $productsData['totalPrice'],
             'products' => $productsData['products'],
-            'createdAt' => strtotime($order->created_at),
+            'createdAt' => date('d.m.Y H:s', strtotime($order->created_at)),
         ]]);
     }
 

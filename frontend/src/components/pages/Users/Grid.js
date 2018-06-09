@@ -51,7 +51,7 @@ Grid.propTypes = {
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
       email: PropTypes.string.isRequired,
-      updatedAt: PropTypes.number.isRequired
+      updatedAt: PropTypes.string.isRequired
     })
   ),
   openNestedRoute: PropTypes.func.isRequired,

@@ -16,7 +16,7 @@ class UserController extends Controller
                 'id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
-                'updatedAt' => strtotime($user->updated_at),
+                'updatedAt' => date('d.m.Y H:s', strtotime($user->updated_at)),
             ];
         }
         return $this->success(['users' => $users]);
