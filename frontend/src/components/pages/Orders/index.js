@@ -32,19 +32,41 @@ class Orders extends Component {
     alertify.confirm(`Are you sure to delete order with ID ${id}?`, () => this.props.deleteOrder(id));
   };
 
+  getStatusText = id => {
+    switch (id) {
+      case 0:
+        return 'New';
+      case 1:
+        return 'In progress';
+      case 2:
+        return 'Closed';
+    }
+  };
+
   render() {
     const { orders, match, isLoggedIn } = this.props;
+    console.log(orders);
     return (
       <Content title="Orders">
         <Switch>
+          {!!orders.length && (
+            <Route
+              path={match.path}
+              exact
+              render={() => (
+                <Grid
+                  orders={orders}
+                  getStatusText={this.getStatusText}
+                  openNestedRoute={this.openNestedRoute}
+                  deleteOrder={this.deleteOrderHandler}
+                />
+              )}
+            />
+          )}
           <Route
-            path={match.path}
-            exact
-            render={() => (
-              <Grid orders={orders} openNestedRoute={this.openNestedRoute} deleteOrder={this.deleteOrderHandler} />
-            )}
+            path={`${match.path}/:id/edit`}
+            render={() => <Form orders={orders} isLoggedIn={isLoggedIn} getStatusText={this.getStatusText} />}
           />
-          <Route path={`${match.path}/:id/edit`} render={() => <Form orders={orders} isLoggedIn={isLoggedIn} />} />
         </Switch>
       </Content>
     );

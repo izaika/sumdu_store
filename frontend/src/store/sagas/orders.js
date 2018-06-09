@@ -1,5 +1,6 @@
 import axios from 'axios';
 import alertify from 'alertify.js';
+import values from 'lodash/values';
 import { put } from 'redux-saga/effects';
 
 import routes from '../../shared/routes';
@@ -12,7 +13,7 @@ export function* getOrdersSaga() {
   yield put(startProcess(actionTypes.GET_ORDERS));
   try {
     const response = yield axios({ method: 'get', url: 'orders' });
-    yield put(setOrders(response.data.orders));
+    yield put(setOrders(values(response.data.orders)));
   } catch (error) {
     alertify.error('Cannot get orders. Please try again later.');
   }

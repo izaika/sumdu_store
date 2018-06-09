@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 import { Form, FormControl, FormGroup, Col, Button, ButtonToolbar, ControlLabel } from 'react-bootstrap';
 
 import routes from '../../../shared/routes';
-import { addProduct, updateProduct } from '../../../store/actions/products';
+import { updateOrder } from '../../../store/actions/orders';
 import { startProcess, stopProcess } from '../../../store/actions/process';
 
 class FormComponent extends Component {
@@ -48,64 +48,52 @@ class FormComponent extends Component {
       })
       .catch(error => {
         console.log(error);
-        alertify.error('Cannot get product data. Please try again later.');
+        alertify.error('Cannot get order data. Please try again later.');
       });
   };
 
   onSubmit = event => {
+    const { props, state } = this;
     event.preventDefault();
-    props.updateProduct(props.history, props.match.params.id, this.state.status);
+    props.updateOrder(props.history, props.match.params.id, state.status);
   };
 
   render() {
+    const { state, props } = this;
     return (
       <Fragment>
-        <Col smOffset={2} sm={10}>
-          <h2>Edit Order</h2>
-        </Col>
+        <h2>Order Details</h2>
+        <strong>Name: </strong> {state.name}
+        <br />
+        <strong>E-mail: </strong> {state.email}
+        <br />
+        <strong>Phone: </strong> {state.phone}
+        <br />
+        <strong>Comment: </strong>
+        <p>{state.comment}</p>
+        <strong>Total price: </strong> ${state.totalPrice}
+        <br />
+        <hr />
         <Form horizontal onSubmit={this.onSubmit}>
-          <FormGroup controlId="orderName">
-            <Col componentClass={ControlLabel} sm={2}>
-              Name
+          <FormGroup controlId="orderStatus">
+            <Col componentClass={ControlLabel} sm={1}>
+              Status
             </Col>
             <Col sm={3}>
-              <FormControl value={this.state.name} disabled />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="orderEmail">
-            <Col componentClass={ControlLabel} sm={2}>
-              Email
-            </Col>
-            <Col sm={3}>
-              <FormControl type="email" value={this.state.email} disabled />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="orderPhone">
-            <Col componentClass={ControlLabel} sm={2}>
-              Phone
-            </Col>
-            <Col sm={3}>
-              <FormControl type="tel" value={this.state.phone} disabled />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="orderComment">
-            <Col componentClass={ControlLabel} sm={2}>
-              Comment
-            </Col>
-            <Col sm={3}>
-              <FormControl componentClass="textarea" value={this.state.phone} disabled />
-            </Col>
-          </FormGroup>
-          <FormGroup controlId="orderPrice">
-            <Col componentClass={ControlLabel} sm={2}>
-              Total Price
-            </Col>
-            <Col sm={3}>
-              <FormControl type="number" value={this.state.totalPrice} disabled />
+              <FormControl
+                componentClass="select"
+                required
+                value={this.state.status}
+                onChange={event => this.setStatus(event.target.value)}
+              >
+                <option value={0}>{props.getStatusText(0)}</option>
+                <option value={1}>{props.getStatusText(1)}</option>
+                <option value={2}>{props.getStatusText(2)}</option>
+              </FormControl>
             </Col>
           </FormGroup>
           <FormGroup>
-            <Col smOffset={2} sm={3}>
+            <Col smOffset={1} sm={3}>
               <ButtonToolbar>
                 {this.state.id > 0 && (
                   <Button type="submit" bsStyle="primary">
@@ -113,7 +101,7 @@ class FormComponent extends Component {
                   </Button>
                 )}
                 <Button type="button" bsStyle="default" onClick={this.backToOrders}>
-                  Cancel
+                  Back
                 </Button>
               </ButtonToolbar>
             </Col>
@@ -127,6 +115,6 @@ class FormComponent extends Component {
 export default withRouter(
   connect(
     null,
-    { addProduct, updateProduct, startProcess, stopProcess }
+    { updateOrder, startProcess, stopProcess }
   )(FormComponent)
 );

@@ -7,11 +7,14 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
+
     public function index()
     {
         $orders = [];
 
-        foreach (Order::all() as $index => $orders) {
+        foreach (Order::all() as $index => $order) {
+            $productsData = $this->getProductsAndPrice($order);
+
             $orders[$index] = [
                 'id' => $order->id,
                 'name' => $order->name,
@@ -20,7 +23,9 @@ class OrderController extends Controller
                 'comment' => $order->comment,
                 'status' => $order->status,
                 'totalPrice' => '', // TODO: calculate the price
-                'createdAt' => $order->created_at,
+                'createdAt' => strtotime($order->created_at),
+                'products' => $productsData['products'],
+                'totalPrice' => $productsData['totalPrice'],
             ];
         }
 
@@ -51,6 +56,7 @@ class OrderController extends Controller
         if (!$order) {
             return $this->noOrderResponse();
         }
+        $productsData = $this->getProductsAndPrice($order);
         return $this->success(['order' => [
             'id' => $order->id,
             'name' => $order->name,
@@ -58,37 +64,49 @@ class OrderController extends Controller
             'phone' => $order->phone,
             'comment' => $order->comment,
             'status' => $order->status,
-            'totalPrice' => '', // TODO: calculate the price,
-            'products' => '', //$order->products
-            'createdAt' => $order->created_at,
+            'totalPrice' => $productsData['totalPrice'],
+            'products' => $productsData['products'],
+            'createdAt' => strtotime($order->created_at),
         ]]);
     }
 
     public function update(Request $request, $id)
     {
-        $product = Product::find($id);
-        if (!$product) {
-            return $this->noProductResponse();
+        $order = Order::find($id);
+        if (!$order) {
+            return $this->noOrderResponse();
         }
 
-        $this->validateRequest($request);
-        $product->title = $request->get('title');
-        $product->description = $request->get('description');
-        $product->price = $request->get('price');
-        $product->category_id = $request->get('categoryId');
-        $product->save();
+        $order->status = $request->get('status');
+        $order->save();
 
-        return $this->success(["message" => "The product with with id {$product->id} has been updated"]);
+        return $this->success(["message" => "The order with with id {$order->id} has been updated"]);
     }
 
     public function destroy($id)
     {
-        $product = Product::find($id);
-        if (!$product) {
-            return $this->noProductResponse();
+        $order = Order::find($id);
+        if (!$order) {
+            return $this->noOrderResponse();
         }
-        $product->delete();
-        return $this->success(["message" => "The product with with id {$id} has been deleted"]);
+        $order->delete();
+        return $this->success(["message" => "The order with with id {$id} has been deleted"]);
+    }
+
+    private function getProductsAndPrice(Order $order): array
+    {
+        $totalPrice = 0;
+        $products = [];
+        foreach ($order->products as $index => $product) {
+            $products[$index] = [
+                'id' => $product->id,
+                'title' => $product->title,
+                'price' => $product->price,
+            ];
+            $totalPrice += $product->price;
+        }
+
+        return ['totalPrice' => $totalPrice, 'products' => $products];
     }
 
     private function validateRequest(Request $request)
