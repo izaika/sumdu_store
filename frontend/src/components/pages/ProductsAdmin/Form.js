@@ -112,6 +112,7 @@ class FormComponent extends Component {
                   value={this.state.categoryId}
                   onChange={event => this.setCategoryId(event.target.value)}
                 >
+                  <option value={0} disabled />
                   {this.state.categories.map(category => (
                     <option key={`category${category.id}`} value={category.id}>
                       {category.title}
@@ -150,9 +151,13 @@ class FormComponent extends Component {
             <FormGroup>
               <Col smOffset={2} sm={3}>
                 <ButtonToolbar>
-                  <Button type="submit" bsStyle="primary">
-                    Save
-                  </Button>
+                  {this.state.categoryId > 0 &&
+                    this.state.title.length > 0 &&
+                    this.state.price > 0 && (
+                      <Button type="submit" bsStyle="primary">
+                        Save
+                      </Button>
+                    )}
                   <Button type="button" bsStyle="default" onClick={this.backToProducts}>
                     Cancel
                   </Button>
