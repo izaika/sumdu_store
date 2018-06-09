@@ -1,12 +1,11 @@
 import alertify from 'alertify.js';
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route } from 'react-router-dom';
 
 import { getProducts, deleteProduct } from '../../../store/actions/products';
 import { getCategories } from '../../../store/actions/categories';
 import { sortByTitle } from '../../../shared/utils';
-import routes from '../../../shared/routes';
 import Content from '../../Content';
 
 import Grid from './Grid';
