@@ -25,3 +25,16 @@ export const SET_PRODUCTS = 'SET_PRODUCTS';
 export const ADD_PRODUCT = 'ADD_PRODUCT';
 export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
 export const DELETE_PRODUCT = 'DELETE_PRODUCT';
+
+export const GET_ORDERS = 'GET_ORDERS';
+export const GET_ORDER = 'GET_ORDER';
+export const SET_ORDERS = 'SET_ORDERS';
+export const ADD_ORDER = 'ADD_ORDER';
+export const UPDATE_ORDER = 'UPDATE_ORDER';
+export const DELETE_ORDER = 'DELETE_ORDER';
+
+export const GET_CART_PRODUCTS = 'GET_CART_PRODUCTS';
+export const SET_CART_PRODUCTS = 'SET_CART_PRODUCTS';
+export const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART';
+export const REMOVE_PRODUCT_FROM_CART = 'REMOVE_PRODUCT_FROM_CART';
+export const CLEAR_CART = 'CLEAR_CART';

@@ -26,6 +26,14 @@ $router->group(['prefix' => '/api'], function () use ($router) {
         $router->post('/fileUpload', ['uses' => 'ProductController@fileUpload', 'middleware' => 'auth']);
     });
 
+    $router->group(['prefix' => '/orders'], function () use ($router) {
+        $router->get('/', ['uses' => 'OrderController@index', 'middleware' => 'auth']);
+        $router->get('/{id}', ['uses' => 'OrderController@show', 'middleware' => 'auth']);
+        $router->post('/', 'OrderController@store');
+        $router->put('/{id}', ['uses' => 'OrderController@update', 'middleware' => 'auth']);
+        $router->delete('/{id}', ['uses' => 'OrderController@destroy', 'middleware' => 'auth']);
+    });
+
     $router->group(['prefix' => '/auth'], function () use ($router) {
         $router->post('/login', ['uses' => 'AuthController@logIn']);
         $router->post('/logout', ['uses' => 'AuthController@logOut', 'middleware' => 'auth']);

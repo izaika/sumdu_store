@@ -7,7 +7,7 @@ import * as actionTypes from '../actions/types';
 import { startProcess, stopProcess } from '../actions/process';
 import { setProducts, getProducts } from '../actions/products';
 
-export function* getProductsSaga(action) {
+export function* getProductsSaga() {
   yield put(startProcess(actionTypes.GET_PRODUCTS));
   try {
     const response = yield axios({ method: 'get', url: 'products' });
@@ -60,7 +60,7 @@ export function* updateProductSaga(action) {
   yield put(startProcess(actionTypes.UPDATE_PRODUCT));
   const { history, id, title, description, price, categoryId, uploadedImage } = action;
   try {
-    const response = yield axios({
+    yield axios({
       method: 'put',
       url: `products/${id}`,
       data: { title, description, price, categoryId }
@@ -70,7 +70,7 @@ export function* updateProductSaga(action) {
         const data = new FormData();
         data.append('image', uploadedImage, uploadedImage.name);
         data.append('productId', id);
-        const imageResponse = yield axios({
+        yield axios({
           method: 'post',
           url: 'products/fileUpload',
           data

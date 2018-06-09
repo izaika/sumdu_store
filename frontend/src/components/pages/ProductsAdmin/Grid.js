@@ -4,7 +4,7 @@ import { Table, Button, ButtonToolbar, FormControl, FormGroup, Col, ControlLabel
 
 class Grid extends Component {
   render() {
-    const { state, props } = this;
+    const { props } = this;
     return (
       <Fragment>
         <Button bsStyle="primary" onClick={() => props.openNestedRoute('new')}>

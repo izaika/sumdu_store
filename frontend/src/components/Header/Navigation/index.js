@@ -33,6 +33,7 @@ const Navigation = props => (
       <Fragment>
         <NavItem to={routes.home}>Home</NavItem>
         <NavItem to={routes.products}>Products</NavItem>
+        <NavItem to={routes.cart}>{`Cart (${props.cartProductsAmount})`}</NavItem>
         <NavItem to={routes.logIn}>Log In</NavItem>
       </Fragment>
     )}
@@ -41,7 +42,7 @@ const Navigation = props => (
 
 export default withRouter(
   connect(
-    reduxState => ({ isLoggedIn: !!reduxState.auth.token }),
+    reduxState => ({ isLoggedIn: !!reduxState.auth.token, cartProductsAmount: reduxState.cart.length }),
     { logOut }
   )(Navigation)
 );

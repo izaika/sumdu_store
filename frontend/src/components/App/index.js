@@ -6,6 +6,7 @@ import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import config from '../../shared/config';
 import routes from '../../shared/routes';
 import { setToken } from '../../store/actions/auth';
+import { getCartProducts } from '../../store/actions/cart';
 
 import Styles from './app.scss';
 
@@ -19,6 +20,7 @@ import Products from '../pages/Products';
 import ProductsAdmin from '../pages/ProductsAdmin';
 import Users from '../pages/Users';
 import Categories from '../pages/Categories';
+import Cart from '../pages/Cart';
 
 import '../../../node_modules/bootstrap-css-only/css/bootstrap.min.css';
 import '../../../node_modules/bootstrap-css-only/css/bootstrap-theme.min.css';
@@ -31,6 +33,7 @@ class App extends Component {
       axios.defaults.headers = { Authorization: `bearer ${token}` };
       this.props.setToken(token, userId);
     }
+    this.props.getCartProducts();
   }
 
   render() {
@@ -45,6 +48,7 @@ class App extends Component {
           <Route path={routes.users} component={Users} />
           <Route path={routes.categories} component={Categories} />
           <Route path={routes.logIn} component={LogIn} />
+          <Route path={routes.cart} component={Cart} />
           <Redirect to={routes.home} />
         </Switch>
         <Footer />
@@ -56,6 +60,6 @@ class App extends Component {
 export default withRouter(
   connect(
     reduxState => ({ isLoggedIn: !!reduxState.auth.token }),
-    { setToken }
+    { setToken, getCartProducts }
   )(App)
 );

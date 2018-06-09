@@ -40,7 +40,7 @@ export function* updateUserSaga(action) {
   yield put(startProcess(actionTypes.UPDATE_USER));
   const { history, id, name, email, password } = action;
   try {
-    const response = yield axios({
+    yield axios({
       method: 'put',
       url: `users/${id}`,
       data: { name, email, password }

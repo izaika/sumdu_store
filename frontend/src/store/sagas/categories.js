@@ -7,7 +7,7 @@ import * as actionTypes from '../actions/types';
 import { startProcess, stopProcess } from '../actions/process';
 import { setCategories, getCategories } from '../actions/categories';
 
-export function* getCategoriesSaga(action) {
+export function* getCategoriesSaga() {
   yield put(startProcess(actionTypes.GET_CATEGORIES));
   try {
     const response = yield axios({ method: 'get', url: 'categories' });
@@ -22,7 +22,7 @@ export function* addCategorySaga(action) {
   yield put(startProcess(actionTypes.ADD_CATEGORY));
   const { history, title } = action;
   try {
-    const response = yield axios({
+    yield axios({
       method: 'post',
       url: 'categories',
       data: { title }
@@ -40,7 +40,7 @@ export function* updateCategorySaga(action) {
   yield put(startProcess(actionTypes.UPDATE_CATEGORY));
   const { history, id, title } = action;
   try {
-    const response = yield axios({
+    yield axios({
       method: 'put',
       url: `categories/${id}`,
       data: { title }

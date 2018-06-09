@@ -6,6 +6,7 @@ import { sortByTitle } from '../../../shared/utils';
 
 import { getProducts } from '../../../store/actions/products';
 import { getCategories } from '../../../store/actions/categories';
+import { addProductToCart } from '../../../store/actions/cart';
 
 import Content from '../../Content';
 import Overview from './Overview';
@@ -52,7 +53,10 @@ class Products extends Component {
                   />
                 )}
               />
-              <Route path={`${match.path}/:id`} render={() => <Product products={products} />} />
+              <Route
+                path={`${match.path}/:id`}
+                render={() => <Product products={products} addProductToCart={props.addProductToCart} />}
+              />
             </Switch>
           )}
       </Content>
@@ -65,5 +69,5 @@ export default connect(
     products: reduxState.products,
     categories: reduxState.categories
   }),
-  { getProducts, getCategories }
+  { getProducts, getCategories, addProductToCart }
 )(Products);

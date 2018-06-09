@@ -5,6 +5,8 @@ import { logInSaga, logOutSaga } from './auth';
 import { getUsersSaga, addUserSaga, updateUserSaga, deleteUserSaga } from './users';
 import { getCategoriesSaga, addCategorySaga, updateCategorySaga, deleteCategorySaga } from './categories';
 import { getProductsSaga, addProductSaga, updateProductSaga, deleteProductSaga } from './products';
+import { getOrdersSaga, addOrderSaga, updateOrderSaga, deleteOrderSaga } from './orders';
+import { getCartProductsSaga, clearCartSaga } from './cart';
 
 export function* watchSagas() {
   yield all([
@@ -24,6 +26,14 @@ export function* watchSagas() {
     takeEvery(actionTypes.GET_PRODUCTS, getProductsSaga),
     takeEvery(actionTypes.ADD_PRODUCT, addProductSaga),
     takeEvery(actionTypes.UPDATE_PRODUCT, updateProductSaga),
-    takeEvery(actionTypes.DELETE_PRODUCT, deleteProductSaga)
+    takeEvery(actionTypes.DELETE_PRODUCT, deleteProductSaga),
+
+    takeEvery(actionTypes.GET_ORDERS, getOrdersSaga),
+    takeEvery(actionTypes.ADD_ORDER, addOrderSaga),
+    takeEvery(actionTypes.UPDATE_ORDER, updateOrderSaga),
+    takeEvery(actionTypes.DELETE_ORDER, deleteOrderSaga),
+
+    takeEvery(actionTypes.GET_CART_PRODUCTS, getCartProductsSaga),
+    takeEvery(actionTypes.CLEAR_CART, clearCartSaga)
   ]);
 }

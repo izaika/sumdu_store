@@ -27,4 +27,12 @@ class Product extends Model
     {
         return $this->belongsTo('App\Category');
     }
+
+    /**
+     * Get orders for the product.
+     */
+    public function orders()
+    {
+        return $this->belongsToMany('App\Order')->using('App\OrderProduct');
+    }
 }

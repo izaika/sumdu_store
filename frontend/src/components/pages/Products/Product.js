@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Row, Col, Button } from 'react-bootstrap';
 
@@ -20,7 +20,15 @@ const Product = props => {
         <p>{product.description}</p>
         <div>
           <span className={Styles.price}>${product.price}</span>&nbsp;
-          <Button bsStyle="primary">Buy</Button>
+          <Button
+            bsStyle="primary"
+            onClick={() => {
+              props.addProductToCart(product.id);
+              props.history.push('/products');
+            }}
+          >
+            Add to Cart
+          </Button>
         </div>
       </Col>
     </Row>
@@ -36,7 +44,8 @@ Product.propTypes = {
       price: PropTypes.number.isRequired,
       categoryId: PropTypes.number.isRequired
     })
-  ).isRequired
+  ).isRequired,
+  addProductToCart: PropTypes.func.isRequired
 };
 
 export default withRouter(Product);

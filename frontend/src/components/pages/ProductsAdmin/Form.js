@@ -40,7 +40,7 @@ class FormComponent extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { props } = this;
-    if (!prevProps.isLoggedIn && this.props.isLoggedIn && !props.isNew) this.getProductData();
+    if (!prevProps.isLoggedIn && props.isLoggedIn && !props.isNew) this.getProductData();
   }
 
   getProductData = () => {

@@ -1,6 +1,6 @@
 export default {
   home: '/',
-  products: '/products',
+  cart: '/cart',
   orders: '/orders',
   logIn: '/login',
   logOut: '/logout',

@@ -14,6 +14,7 @@
     "bootstrap-css-only": "3.3.7",
     "connected-react-router": "^4.3.0",
     "immutable": "^3.8.2",
+    "lodash": "^4.17.10",
     "prop-types": "^15.6.1",
     "react": "^16.4.0",
     "react-bootstrap": "^0.32.1",
