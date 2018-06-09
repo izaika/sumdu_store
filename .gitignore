@@ -4,5 +4,5 @@ Homestead.json
 Homestead.yaml
 .env
 node_modules
-yarn.lock
+yarn-error.log
 logs

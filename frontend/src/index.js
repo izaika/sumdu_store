@@ -1,10 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { Route } from 'react-router-dom';
 import { connectRouter, routerMiddleware, ConnectedRouter } from 'connected-react-router';
 import { createBrowserHistory } from 'history';
-import { syncHistoryWithStore } from 'react-router-redux';
 
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
