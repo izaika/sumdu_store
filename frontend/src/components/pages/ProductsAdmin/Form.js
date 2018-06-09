@@ -4,7 +4,7 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { Form, FormControl, FormGroup, Col, Button, ButtonToolbar, ControlLabel, FieldGroup } from 'react-bootstrap';
+import { Form, FormControl, FormGroup, Col, Button, ButtonToolbar, ControlLabel } from 'react-bootstrap';
 
 import routes from '../../../shared/routes';
 import { addProduct, updateProduct } from '../../../store/actions/products';

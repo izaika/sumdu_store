@@ -1,15 +1,48 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Table, Button, ButtonToolbar } from 'react-bootstrap';
+import { Table, Button, ButtonToolbar, FormControl, FormGroup, Col, ControlLabel } from 'react-bootstrap';
 
 class Grid extends Component {
+  state = {
+    selectedCategoryId: 0
+  };
+
+  setSelectedCategoryId = id => this.setState({ selectedCategoryId: parseInt(id, 10) });
+
+  getFilteredProducts = () =>
+    this.state.selectedCategoryId === 0
+      ? this.props.products
+      : this.props.products.filter(product => product.categoryId === this.state.selectedCategoryId);
+
   render() {
-    const { props } = this;
+    const { state, props } = this;
     return (
       <Fragment>
         <Button bsStyle="primary" onClick={() => props.openNestedRoute('new')}>
           Add New
         </Button>
+        <hr />
+        <FormGroup controlId="categories_filter">
+          <Col componentClass={ControlLabel} sm={2}>
+            Filter by category:
+          </Col>
+          <Col sm={3}>
+            <FormControl
+              componentClass="select"
+              required
+              value={state.selectedCategoryId}
+              onChange={event => this.setSelectedCategoryId(event.target.value)}
+              style={{ display: 'inline-block', width: '200px', marginLeft: '5px' }}
+            >
+              <option value={0}>All</option>
+              {props.categories.map(category => (
+                <option key={`category${category.id}`} value={category.id}>
+                  {category.title}
+                </option>
+              ))}
+            </FormControl>
+          </Col>
+        </FormGroup>
         <Table striped hover>
           <colgroup>
             <col style={{ width: '200px' }} />
@@ -28,7 +61,7 @@ class Grid extends Component {
             </tr>
           </thead>
           <tbody>
-            {props.products.map(({ id, title, price, categoryId }) => (
+            {this.getFilteredProducts().map(({ id, title, price, categoryId }) => (
               <tr key={`product_${id}`}>
                 <td>
                   <img src={`${imgPath}/${id}/image.jpg`} width={200} alt={title} />
