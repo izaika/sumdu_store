@@ -19,6 +19,8 @@ const composeEnhancers =
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     : compose;
 
+axios.defaults.baseURL = 'http://store.loc/api/';
+
 const sagaMiddleware = createSagaMiddleware();
 const history = createBrowserHistory();
 
@@ -30,7 +32,7 @@ const store = createStore(
 sagaMiddleware.run(watchSagas);
 
 const rootElement = document.getElementById('root');
-window.imgPath = 'http://api.store.loc/images';
+window.imgPath = 'http://store.loc/images';
 
 ReactDOM.render(
   <Provider store={store}>

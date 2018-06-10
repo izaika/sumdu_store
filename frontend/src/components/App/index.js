@@ -27,7 +27,6 @@ import '../../../node_modules/bootstrap-css-only/css/bootstrap-theme.min.css';
 
 class App extends Component {
   componentDidMount() {
-    axios.defaults.baseURL = 'http://api.store.loc/api/';
     axios.interceptors.request.use(
       config => config,
       error => {
