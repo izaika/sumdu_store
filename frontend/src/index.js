@@ -14,22 +14,6 @@ import reducers from './store/reducers';
 import { watchSagas } from './store/sagas';
 import App from './components/App';
 
-axios.defaults.baseURL = 'http://api.store.loc/api/';
-axios.interceptors.request.use(
-  config => config,
-  error => {
-    console.error(error);
-    return Promise.reject(error);
-  }
-);
-axios.interceptors.response.use(
-  response => response,
-  error => {
-    console.error(error);
-    return Promise.reject(error);
-  }
-);
-
 const composeEnhancers =
   process.env.NODE_ENV === 'development' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__

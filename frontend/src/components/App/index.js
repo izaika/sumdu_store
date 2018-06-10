@@ -5,7 +5,7 @@ import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 
 import config from '../../shared/config';
 import routes from '../../shared/routes';
-import { setToken } from '../../store/actions/auth';
+import { setToken, logOut } from '../../store/actions/auth';
 import { getCartProducts } from '../../store/actions/cart';
 
 import Styles from './app.scss';
@@ -27,6 +27,25 @@ import '../../../node_modules/bootstrap-css-only/css/bootstrap-theme.min.css';
 
 class App extends Component {
   componentDidMount() {
+    axios.defaults.baseURL = 'http://api.store.loc/api/';
+    axios.interceptors.request.use(
+      config => config,
+      error => {
+        console.error(error);
+        return Promise.reject(error);
+      }
+    );
+    axios.interceptors.response.use(
+      response => response,
+      error => {
+        if (error.response.status === 401) {
+          this.props.logOut();
+        }
+        console.error(error);
+        return Promise.reject(error);
+      }
+    );
+
     const token = localStorage.getItem(`${config.app_key}_token`);
     const userId = parseInt(localStorage.getItem(`${config.app_key}_userId`), 10);
     if (token && userId) {
@@ -60,6 +79,6 @@ class App extends Component {
 export default withRouter(
   connect(
     reduxState => ({ isLoggedIn: !!reduxState.auth.token }),
-    { setToken, getCartProducts }
+    { setToken, getCartProducts, logOut }
   )(App)
 );

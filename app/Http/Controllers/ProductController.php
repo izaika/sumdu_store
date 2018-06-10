@@ -97,6 +97,7 @@ class ProductController extends Controller
         $product_id = $request->get('productId');
         $ext = $image->getClientOriginalExtension();
         $image_destination = $this->getPublicPath("images/$product_id");
+        @unlink("$image_destination/image.jpg");
         $image->move($image_destination, "image.jpg");
         // chmod($image_destination, 0777);
         return $this->success(["message" => "Image was uploaded"]);
