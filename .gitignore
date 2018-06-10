@@ -2,7 +2,6 @@
 /.idea
 Homestead.json
 Homestead.yaml
-.env
 node_modules
 yarn-error.log
 logs
