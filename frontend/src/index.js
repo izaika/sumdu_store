@@ -19,7 +19,7 @@ const composeEnhancers =
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
     : compose;
 
-axios.defaults.baseURL = 'http://store.loc/api/';
+axios.defaults.baseURL = 'http://sumdu/api/';
 
 const sagaMiddleware = createSagaMiddleware();
 const history = createBrowserHistory();
@@ -32,7 +32,7 @@ const store = createStore(
 sagaMiddleware.run(watchSagas);
 
 const rootElement = document.getElementById('root');
-window.imgPath = 'http://store.loc/images';
+window.imgPath = 'http://sumdu/images';
 
 ReactDOM.render(
   <Provider store={store}>
