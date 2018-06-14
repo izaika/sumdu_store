@@ -71,6 +71,10 @@ class FormComponent extends Component {
         <br />
         <strong>Comment: </strong>
         <p>{state.comment}</p>
+        <strong>Products: </strong>
+        <ul>
+          {this.state.products.map(product => <li>{product.title} <b>${product.price}</b></li>)}
+        </ul>
         <strong>Total price: </strong> ${state.totalPrice}
         <br />
         <hr />
